@@ -1,58 +1,80 @@
-/* Basic Styles */
-
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f5f5f5;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 2rem;
+    color: #222;
 }
 
-#app {
-    background-color: white;
-    padding: 30px;
+.container {
+    max-width: 640px;
+    margin: 0 auto;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 30px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.task-form {
-    margin-bottom: 20px;
-}
-
-input, select, button {
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ddd;
+.add-task-section input,
+.add-task-section select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-button {
-    background-color: #007bff;
-    color: white;
+.add-task-btn {
+    background: #2d6cdf;
+    color: #fff;
     border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.add-task-btn:hover {
+    background: #1f53b3;
 }
 
-.task {
-    padding: 15px;
-    margin: 10px 0;
-    background-color: #f8f9fa;
-    border-left: 4px solid #007bff;
-    border-radius: 4px;
+.task-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
 }
 
-.stats {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #e9ecef;
+.task-item h3 {
+    margin: 0 0 0.25rem;
+}
+
+.toggle-task-btn,
+.delete-task-btn {
+    margin-right: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
+}
+
+.toggle-task-btn {
+    background: #2ecc71;
+    color: #fff;
+}
+
+.delete-task-btn {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.statistics {
+    margin-top: 1rem;
+    font-weight: bold;
 }
