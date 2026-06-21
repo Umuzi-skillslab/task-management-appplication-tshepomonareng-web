@@ -1,59 +1,44 @@
-# Task Manager - JavaScript Starter Code
+# Task Management Application
 
-This is the starter codebase for your JavaScript task management application. The code is approximately 70% complete but contains errors, omissions, and areas that need significant improvement.
+A vanilla JavaScript task manager, debugged and completed from a ~60%-finished starter codebase as a capstone project. Covers ES6+ syntax, OOP with inheritance, functional programming, DOM manipulation, localStorage persistence, and a full Jest test suite.
 
-## What's Included
+## Overview
 
-- `app.js` - Core application logic (incomplete with errors)
-- `dom.js` - DOM manipulation code (incomplete with errors)
-- `index.html` - HTML structure (incomplete)
-- `app.test.js` - Jest tests (incomplete)
-- `package.json` - Project configuration
+Users can add tasks with a title, description, and priority (low/medium/high), mark them complete, delete them, and see live completion statistics. Tasks persist across page reloads via `localStorage`.
 
-## Errors and Omissions
+## Errors Found
 
-The starter code contains intentional errors and missing features across all JavaScript topics including:
+See `issues-identified.md` for the full list (30 errors across 7 categories). Highlights: an undeclared global (`taskList`), `==` and `=` used where `===` was needed, an off-by-one loop, an infinite `while` loop (missing `i++`), a missing `super()` call in `SubTask`, no JSON serialization in storage functions, and a recursive function with no base case.
 
-- Variable scoping issues (var vs let vs const)
-- Missing error handling (try-catch blocks)
-- Incorrect operators and comparisons
-- Loop errors (for, while, for-of)
-- Missing array and object destructuring
-- No spread/rest operators
-- Missing template literals
-- Class and inheritance issues
-- Missing functional programming approaches
-- DOM selector errors
-- Event handling problems
-- Missing JSON operations
-- Incomplete Jest tests
-- Missing module exports/imports
+## Fixes Implemented
 
-## Your Task
+- **Variables/operators** — all `var` replaced with `let`/`const`; `==`/`=` bugs replaced with `===`; `typeof` checks added before using parameters.
+- **Control flow** — off-by-one and infinite-loop bugs fixed; `for...of` used where appropriate.
+- **Functions** — missing parameters restored; `map`/`filter`/`reduce`/`find`/`some` used throughout; 3 pure functions added (`getPriorityBreakdown`, `summarizeTasks`, `getPriorityWeight`); `sortTasksBy` is a higher-order function.
+- **OOP** — `Task` got an `id` and `toggleCompletion()`; `SubTask` now calls `super()` and overrides `getInfo()`; `TaskManager` gained 4 new methods.
+- **Modern JS** — destructuring (object, array, and function-parameter forms), template literals, spread (`mergeTasks`, `getSortedTasks`), and a rest parameter (`addMultipleTasks`) added throughout.
+- **Modules** — `utils.js`, `app.js`, and `dom.js` are real ES modules with `import`/`export`.
+- **DOM/events** — selectors fixed, null checks added, 5 event listeners wired up, one event-delegation handler on the task list container, `DOMContentLoaded` used for init.
+- **Storage** — `JSON.stringify`/`JSON.parse` added; tasks now persist and reload correctly.
+- **Error handling** — `try-catch` blocks and parameter validation added across storage, task creation, and update functions.
 
-1. Review all code files carefully
-2. Identify and fix all errors
-3. Complete all missing requirements
-4. Add proper error handling
-5. Implement modern JavaScript features
-6. Write comprehensive tests
-7. Ensure code follows best practices
+## Features Added
 
-## Getting Started
+Priority dropdown, live statistics panel, mark-complete/delete buttons (via delegated click handling), Enter-to-submit, and automatic task restoration from `localStorage` on load.
 
-1. Install dependencies: `npm install`
-2. Review all JavaScript files
-3. Run tests: `npm test` (they will fail initially)
-4. Fix errors and complete missing features
-5. Re-run tests until all pass
+## Running the App
 
-## Testing
+Open `index.html` directly in a browser (no build step needed — it's plain ES modules).
 
-Run Jest tests with:
-```
+## Running Tests
+
+```bash
+npm install
 npm test
 ```
 
-Initially, tests will fail or be incomplete. Fix the code and add missing tests.
+**Result:** 32/32 tests passing, 0 failures, covering Task/SubTask classes, inheritance, recursion, array operations, destructuring, storage round-trips, and edge cases (empty arrays, unknown IDs, invalid input).
 
-Good luck!
+## Reflection
+
+The trickiest bug to track down was the infinite loop in `findTaskByTitle` — the missing `i++` doesn't throw an error, it just hangs, so the fix required reading the loop logic carefully rather than relying on a stack trace. The `updateTaskPriority` bug (`=` instead of `===`) was similar: it didn't crash, it just silently updated the *first* task's priority every time instead of the *matching* one, which only became obvious once a test exposed the wrong task being modified. Standardizing the `priority` field on a string scale (`"low"/"medium"/"high"`) rather than leaving it as the starter code's inconsistent mix of numbers and strings was also a judgment call worth noting — it made comparisons and the priority dropdown UI much more reliable.
